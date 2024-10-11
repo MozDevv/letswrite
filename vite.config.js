@@ -14,17 +14,27 @@ export default defineConfig({
 
   esbuild: {
     loader: "jsx",
-    include: /src\/.*\.jsx?$/,
+    // Apply the loader explicitly for both .js and .jsx files in the src directory
+    include: [/src\/.*\.jsx?$/],
     exclude: [],
   },
 
   server: {
-    port: 3000,
+    port: 80,
   },
 
   preview: {
-    port: 3000,
+    port: 80,
   },
 
   plugins: [svgr(), react()],
+
+  optimizeDeps: {
+    esbuildOptions: {
+      loader: {
+        ".js": "jsx",
+        ".jsx": "jsx",
+      },
+    },
+  },
 });
